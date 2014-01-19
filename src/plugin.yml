@@ -1,0 +1,3 @@
+name: VRSkills
+version: 1.0.0
+main: base.plugin.StatHandler
