@@ -1,52 +1,33 @@
 package base.plugin;
 
-import org.bukkit.entity.Player;
-
 /**
- * @author 2mac
+ * @author Jdog653
  */
-public enum Skill
+public class Skill
 {
-    ARCHERY,
-    AXES,
-    EXCAVATION,
-    FISHING,
-    HERBALISM,
-    MINING,
-    SWORDPLAY,
-    TAMING,
-    UNARMED_COMBAT,
-    WOODCUTTING;
+    private SkillType TYPE;
+    private int currentXp, maxXp, currentLevel;
 
-    // todo: calculate level constant
-    public static final float LEVEL_CONST = 1f;
-
-    private byte maxLevel, currentLevel;
-    private int nextXp, currentXp;
-
-    Skill()
+    public Skill(final SkillType t)
     {
-        maxLevel = 100;
+        this(t, 0);
     }
 
-    public void gainXp(Player p, int amount)
+    public Skill(final SkillType t, final int currentXp)
     {
-        currentXp += amount;
-        if (currentXp >= nextXp)
-        {
-            levelUp(p);
-        }
+        TYPE = t;
+        this.currentXp = currentXp;
+        currentLevel = calculateLevel(currentXp);
     }
 
-    public void levelUp(Player p)
+    public SkillType getType()
     {
-        if (currentLevel < maxLevel)
-        {
-            // todo: notify player
-            currentXp -= nextXp;
-            currentLevel++;
-            nextXp *= LEVEL_CONST;
-            gainXp(p,0);
-        }
+        return TYPE;
+    }
+
+    private int calculateLevel(final int xp)
+    {
+        //TODO Figure out a way to calculate levels based on XP
+        return 0;
     }
 }
