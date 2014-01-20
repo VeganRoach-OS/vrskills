@@ -18,7 +18,7 @@ public class Skill
         TYPE = t;
 
         this.currentXp = currentXp;
-        if(getCurrentLevel() > 100 || getCurrentLevel() <= 0)
+        if(getCurrentLevel() > 100 || getCurrentLevel() < 1)
         {
             throw new IllegalArgumentException("The level that was entered is wrong. Check your math, please.");
         }
@@ -32,7 +32,7 @@ public class Skill
 
         if(oldLevel < currentLevel)
         {
-
+            //TODO Somehow notify the Player and increase effectiveness of said Skill
         }
         //Uh-Oh
         else if(oldLevel > currentLevel)
