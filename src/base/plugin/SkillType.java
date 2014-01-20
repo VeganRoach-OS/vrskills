@@ -1,7 +1,9 @@
 package base.plugin;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * @author Jdog653
@@ -48,7 +50,7 @@ public enum SkillType
 
         ExperienceGroup()
         {
-            levelMap = new HashMap<>();
+            levelMap = new TreeMap<>();
 
             for(byte i = 1; i <= 100; i++)
             {
@@ -58,24 +60,59 @@ public enum SkillType
 
         public byte getLevel(final int exp)
         {
-            return levelMap.get(exp);
+            if(levelMap.containsKey(exp))
+            {
+                return levelMap.get(exp);
+            }
+
+            Iterator<Integer> expIterator = levelMap.keySet().iterator();
+            int minExp = expIterator.next(), nextExp, count = 1;
+
+            while(expIterator.hasNext())
+            {
+                nextExp = expIterator.next();
+                //Levels 1-99
+                if(count < 100)
+                {
+                    if(exp >= minExp && exp < nextExp)
+                    {
+                        return levelMap.get(minExp);
+                    }
+
+                    minExp = nextExp;
+                }
+                //Level 100
+                else if(exp <= minExp)
+                {
+                    return levelMap.get(minExp);
+                }
+                count++;
+            }
+
+            throw new IllegalStateException(exp + " is an invalid amount of exp. The max exp for this type is " + getExpForLevel((byte)100));
         }
 
         public int getExpForLevel(final byte level)
         {
-            switch(this)
+            //All experience is 0 at level 1
+            if(level == 1)
             {
-                case ERRATIC:
+                return 0;
+            }
+
+            switch(this.name())
+            {
+                case "ERRATIC":
                     return calcErratic(level);
-                case FAST:
+                case "FAST":
                     return calcFast(level);
-                case MEDIUM_FAST:
+                case "MEDIUM_FAST":
                     return calcMedFast(level);
-                case MEDIUM_SLOW:
+                case "MEDIUM_SLOW":
                     return calcMedSlow(level);
-                case SLOW:
+                case "SLOW":
                     return calcSlow(level);
-                case FLUCTUATING:
+                case "FLUCTUATING":
                     return calcFluctuating(level);
                 default:
                     throw new IllegalStateException("Enum " + this.toString().toLowerCase() + " is illlegal");
@@ -84,7 +121,7 @@ public enum SkillType
 
         private int calcErratic(final byte level)
         {
-            if(level > 0 && level <= 50)
+            if(level > 1 && level <= 50)
             {
                 return (int)((Math.pow(level, 3) * (100 - level)) / 50.0);
             }
@@ -108,7 +145,7 @@ public enum SkillType
 
         private int calcFast(final byte level)
         {
-            if(level > 0 && level <= 100)
+            if(level > 1 && level <= 100)
             {
                 return (int)((4 * Math.pow(level, 3)) / 5.0);
             }
@@ -118,7 +155,7 @@ public enum SkillType
 
         private int calcMedFast(final byte level)
         {
-            if(level > 0 && level <= 100)
+            if(level > 1 && level <= 100)
             {
                 return (int)Math.pow(level, 3);
             }
@@ -128,7 +165,7 @@ public enum SkillType
 
         private int calcMedSlow(final byte level)
         {
-            if(level > 0 && level <= 100)
+            if(level > 1 && level <= 100)
             {
                 return (int)(((6 * Math.pow(level, 3)) / 5.0) - (15 * Math.pow(level, 2)) + (100 * level) - 140);
             }
@@ -138,7 +175,7 @@ public enum SkillType
 
         private int calcSlow(final byte level)
         {
-            if(level > 0 && level <= 100)
+            if(level > 1 && level <= 100)
             {
                 return (int)((5 * Math.pow(level, 3)) / 4.0);
             }
@@ -148,7 +185,7 @@ public enum SkillType
 
         private int calcFluctuating(final byte level)
         {
-            if(level > 0 && level <= 15)
+            if(level > 1 && level <= 15)
             {
                 return (int)(Math.pow(level, 3) * ((((level + 1) / 3.0) + 24) / 50.0));
             }
