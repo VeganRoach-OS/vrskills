@@ -1,5 +1,8 @@
 package base.plugin;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author Jdog653
  */
@@ -27,6 +30,11 @@ public enum SkillType
         return GROUP.getExpForLevel(level);
     }
 
+    public byte getLevel(final int exp)
+    {
+        return GROUP.getLevel(exp);
+    }
+
     private enum ExperienceGroup
     {
         ERRATIC,
@@ -35,6 +43,23 @@ public enum SkillType
         MEDIUM_SLOW,
         SLOW,
         FLUCTUATING;
+
+        private Map<Integer, Byte> levelMap;
+
+        ExperienceGroup()
+        {
+            levelMap = new HashMap<>();
+
+            for(byte i = 1; i <= 100; i++)
+            {
+                levelMap.put(getExpForLevel(i), i);
+            }
+        }
+
+        public byte getLevel(final int exp)
+        {
+            return levelMap.get(exp);
+        }
 
         public int getExpForLevel(final byte level)
         {
