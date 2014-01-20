@@ -35,7 +35,7 @@ public class Skill
 
         }
         //Uh-Oh
-        else if(oldLevel < currentLevel)
+        else if(oldLevel > currentLevel)
         {
             throw new IllegalStateException("After " + exp + " experience, the level decreased from " + oldLevel + " to " + currentLevel + ".");
         }
