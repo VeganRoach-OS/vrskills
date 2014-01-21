@@ -39,6 +39,13 @@ public class StatHandler extends JavaPlugin
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
+        switch (command.getName().toLowerCase())
+        {
+            // all command work done with args to this command
+            case "vrskills":
+            case "skills":
+                break;
+        }
         return false;
     }
 
