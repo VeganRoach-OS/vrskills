@@ -41,6 +41,10 @@ public class Skill
              * because the skill's effectiveness can be checked on a
              * per-event basis using the skill's current level.
              */
+            if (currentLevel == 100)
+            {
+                // TODO: notify all players if someone masters a skill
+            }
         }
         //Uh-Oh
         else if(oldLevel > currentLevel)
