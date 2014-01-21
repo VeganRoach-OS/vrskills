@@ -32,7 +32,15 @@ public class Skill
 
         if(oldLevel < currentLevel)
         {
-            //TODO Somehow notify the Player and increase effectiveness of said Skill
+            /*
+             * TODO: notify player
+             * To do that, we need to get the parent player of this skill
+             * as well as the skill's name in lowercase letters.
+             *
+             * We do not need to directly increase skill effectiveness,
+             * because the skill's effectiveness can be checked on a
+             * per-event basis using the skill's current level.
+             */
         }
         //Uh-Oh
         else if(oldLevel > currentLevel)
