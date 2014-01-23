@@ -15,6 +15,7 @@ import java.util.Map;
  */
 public class StatHandler extends JavaPlugin
 {
+    public static final StatHandler thisPlugin = new StatHandler();
     public Map<String, Skill[]> playerSkills;
 
     @Override
