@@ -52,10 +52,13 @@ public class Skill
                 // TODO: get player name
                 for (Player x : Bukkit.getOnlinePlayers())
                 {
-                    x.sendMessage(ChatColor.GOLD + "Someone" +
-                                          ChatColor.RED + " has mastered the art of " +
-                                          ChatColor.GOLD + TYPE.toString().toLowerCase() +
-                                          ChatColor.RED + "!");
+                    if (x.isOnline() && x != null)
+                    {
+                        x.sendMessage(ChatColor.GOLD + "Someone" +
+                                              ChatColor.RED + " has mastered the art of " +
+                                              ChatColor.GOLD + TYPE.toString().toLowerCase() +
+                                              ChatColor.RED + "!");
+                    }
                 }
             }
         }
