@@ -1,5 +1,9 @@
 package base.plugin;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+
 /**
  * @author Jdog653
  */
@@ -45,7 +49,14 @@ public class Skill
              */
             if (currentLevel == 100)
             {
-                // TODO: notify all players if someone masters a skill
+                // TODO: get player name
+                for (Player x : Bukkit.getOnlinePlayers())
+                {
+                    x.sendMessage(ChatColor.GOLD + "Someone" +
+                                          ChatColor.RED + " has mastered the art of " +
+                                          ChatColor.GOLD + TYPE.toString().toLowerCase() +
+                                          ChatColor.RED + "!");
+                }
             }
         }
         //Uh-Oh
