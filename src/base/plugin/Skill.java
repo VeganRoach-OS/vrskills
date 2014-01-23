@@ -35,7 +35,9 @@ public class Skill
             /*
              * TODO: notify player
              * To do that, we need to get the parent player of this skill
-             * as well as the skill's name in lowercase letters.
+             * as well as the skill's name in lowercase letters. There
+             * is now a static StatHandler available so that we can
+             * access the HashMap that contains the player.
              *
              * We do not need to directly increase skill effectiveness,
              * because the skill's effectiveness can be checked on a
