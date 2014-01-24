@@ -14,7 +14,7 @@ public class PlayerLoginListener implements Listener
 {
     private StatHandler plugin;
 
-    PlayerLoginListener(StatHandler h)
+    public PlayerLoginListener(StatHandler h)
     {
         plugin = h;
     }
