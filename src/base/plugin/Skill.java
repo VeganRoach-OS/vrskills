@@ -28,7 +28,7 @@ public class Skill
         }
     }
 
-    public void addExp(final int exp)
+    public boolean addExp(final int exp)
     {
         byte oldLevel = getCurrentLevel(), currentLevel;
         currentXp += exp;
@@ -52,21 +52,24 @@ public class Skill
                 // TODO: get player name
                 for (Player x : Bukkit.getOnlinePlayers())
                 {
-                    if (x.isOnline() && x != null)
+                    if (x != null && x.isOnline())
                     {
                         x.sendMessage(ChatColor.GOLD + "Someone" +
-                                              ChatColor.RED + " has mastered the art of " +
-                                              ChatColor.GOLD + TYPE.toString().toLowerCase() +
-                                              ChatColor.RED + "!");
+                                      ChatColor.RED + " has mastered the art of " +
+                                      ChatColor.GOLD + TYPE +
+                                      ChatColor.RED + "!");
                     }
                 }
             }
+            return true;
         }
         //Uh-Oh
         else if(oldLevel > currentLevel)
         {
             throw new IllegalStateException("After " + exp + " experience, the level decreased from " + oldLevel + " to " + currentLevel + ".");
         }
+
+        return false;
     }
 
     public byte getCurrentLevel()
