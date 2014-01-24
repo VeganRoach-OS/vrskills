@@ -1,10 +1,12 @@
 package base.plugin;
 
 import base.listeners.PlayerBlockBreakListener;
+import base.listeners.PlayerLoginListener;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
@@ -22,6 +24,11 @@ public class StatHandler extends JavaPlugin
     public void onEnable()
     {
         loadConfiguration();
+        PluginManager pm = Bukkit.getPluginManager();
+
+        pm.registerEvents(new PlayerBlockBreakListener(this), this);
+        pm.registerEvents(new PlayerLoginListener(this), this);
+
         Skill[] s;
         playerSkills = new HashMap<>();
 
@@ -41,8 +48,8 @@ public class StatHandler extends JavaPlugin
     // loads the default config from internal config.yml
     public void loadConfiguration()
     {
-        thisPlugin.getConfig().options().copyDefaults(true);
-        thisPlugin.saveConfig();
+        /*thisPlugin.getConfig().options().copyDefaults(true);
+        thisPlugin.saveConfig();*/
     }
 
     @Override
