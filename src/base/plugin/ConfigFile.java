@@ -1,4 +1,4 @@
-package base;
+package base.plugin;
 
 /**
  * Created by Jordan on 1/23/14.
