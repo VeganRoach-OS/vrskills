@@ -22,6 +22,6 @@ public class PlayerBlockBreakListener implements Listener
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e)
     {
-
+        Player player = e.getPlayer();
     }
 }
