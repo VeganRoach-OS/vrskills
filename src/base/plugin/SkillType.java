@@ -1,6 +1,5 @@
 package base.plugin;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
@@ -35,6 +34,12 @@ public enum SkillType
     public byte getLevel(final int exp)
     {
         return GROUP.getLevel(exp);
+    }
+
+    @Override
+    public String toString()
+    {
+        return super.toString().charAt(0) + super.toString().substring(1).toLowerCase();
     }
 
     private enum ExperienceGroup
