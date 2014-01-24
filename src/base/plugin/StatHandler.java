@@ -21,6 +21,7 @@ public class StatHandler extends JavaPlugin
     @Override
     public void onEnable()
     {
+        loadConfiguration();
         Skill[] s;
         playerSkills = new HashMap<>();
 
@@ -35,6 +36,13 @@ public class StatHandler extends JavaPlugin
 
             playerSkills.put(p.getDisplayName(), s);
         }
+    }
+
+    // loads the default config from internal config.yml
+    public void loadConfiguration()
+    {
+        thisPlugin.getConfig().options().copyDefaults(true);
+        thisPlugin.saveConfig();
     }
 
     @Override
