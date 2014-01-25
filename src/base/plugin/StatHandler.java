@@ -66,8 +66,21 @@ public class StatHandler extends JavaPlugin
             experience.load(experienceFile);
         } catch (IOException | InvalidConfigurationException e)
         {
-            getLogger().severe("Unable to load configuration!");
-            e.printStackTrace();
+            getLogger().info("Configuration files not found. Generating...");
+        }
+    }
+
+    public void writeDefaults()
+    {
+        if (!configFile.exists())
+        {
+            configFile.getParentFile().mkdirs();
+            saveResource("config.yml", false);
+        }
+        if (!experienceFile.exists())
+        {
+            experienceFile.getParentFile().mkdirs();
+            saveResource("experience.yml", false);
         }
     }
 
