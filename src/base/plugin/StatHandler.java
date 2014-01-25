@@ -34,7 +34,7 @@ public class StatHandler extends JavaPlugin
         experienceFile = new File(getDataFolder(), "experience.yml");
         config = new YamlConfiguration();
         experience = new YamlConfiguration();
-        loadConfiguration();
+        loadConfiguration((byte)0);
         expRatio = config.getDouble("experienceratio");
         PluginManager pm = Bukkit.getPluginManager();
 
@@ -58,7 +58,7 @@ public class StatHandler extends JavaPlugin
     }
 
     // loads the default config from internal config.yml
-    public void loadConfiguration()
+    public void loadConfiguration(byte tries)
     {
         try
         {
@@ -66,12 +66,20 @@ public class StatHandler extends JavaPlugin
             experience.load(experienceFile);
         } catch (IOException | InvalidConfigurationException e)
         {
-            getLogger().info("Configuration files not found. Generating...");
-            writeDefaults();
+            tries++;
+            if (tries > 3)
+            {
+                getLogger().severe("After " + tries + " attempts, could not generate config files.");
+                e.printStackTrace();
+            } else
+            {
+                getLogger().info("Configuration files not found. Generating...");
+                writeDefaults(tries);
+            }
         }
     }
 
-    public void writeDefaults()
+    public void writeDefaults(byte tries)
     {
         if (!configFile.exists())
         {
@@ -84,7 +92,7 @@ public class StatHandler extends JavaPlugin
             saveResource("experience.yml", false);
         }
 
-        loadConfiguration();
+        loadConfiguration(tries);
     }
 
     @Override
