@@ -22,6 +22,7 @@ import java.util.Map;
 public class StatHandler extends JavaPlugin
 {
     public static final StatHandler thisPlugin = new StatHandler();
+    public static double expRatio;
     public Map<String, Skill[]> playerSkills;
     public YamlConfiguration config, experience;
     private File configFile, experienceFile;
@@ -34,6 +35,7 @@ public class StatHandler extends JavaPlugin
         config = new YamlConfiguration();
         experience = new YamlConfiguration();
         loadConfiguration();
+        expRatio = config.getDouble("experienceratio");
         PluginManager pm = Bukkit.getPluginManager();
 
         pm.registerEvents(new PlayerBlockBreakListener(this), this);
