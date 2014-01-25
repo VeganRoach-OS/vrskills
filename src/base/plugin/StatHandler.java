@@ -83,6 +83,8 @@ public class StatHandler extends JavaPlugin
             experienceFile.getParentFile().mkdirs();
             saveResource("experience.yml", false);
         }
+
+        loadConfiguration();
     }
 
     @Override
