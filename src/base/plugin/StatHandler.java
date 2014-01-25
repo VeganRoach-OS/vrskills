@@ -5,10 +5,14 @@ import base.listeners.PlayerLoginListener;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,10 +23,16 @@ public class StatHandler extends JavaPlugin
 {
     public static final StatHandler thisPlugin = new StatHandler();
     public Map<String, Skill[]> playerSkills;
+    public YamlConfiguration config, experience;
+    private File configFile, experienceFile;
 
     @Override
     public void onEnable()
     {
+        configFile = new File(getDataFolder(), "config.yml");
+        experienceFile = new File(getDataFolder(), "experience.yml");
+        config = new YamlConfiguration();
+        experience = new YamlConfiguration();
         loadConfiguration();
         PluginManager pm = Bukkit.getPluginManager();
 
@@ -48,8 +58,15 @@ public class StatHandler extends JavaPlugin
     // loads the default config from internal config.yml
     public void loadConfiguration()
     {
-        /*thisPlugin.getConfig().options().copyDefaults(true);
-        thisPlugin.saveConfig();*/
+        try
+        {
+            config.load(configFile);
+            experience.load(experienceFile);
+        } catch (IOException | InvalidConfigurationException e)
+        {
+            getLogger().severe("Unable to load configuration!");
+            e.printStackTrace();
+        }
     }
 
     @Override
