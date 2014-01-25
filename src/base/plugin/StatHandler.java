@@ -67,6 +67,7 @@ public class StatHandler extends JavaPlugin
         } catch (IOException | InvalidConfigurationException e)
         {
             getLogger().info("Configuration files not found. Generating...");
+            writeDefaults();
         }
     }
 
