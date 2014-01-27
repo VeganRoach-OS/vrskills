@@ -22,6 +22,7 @@ import java.util.Map;
 public class StatHandler extends JavaPlugin
 {
     public static final StatHandler thisPlugin = new StatHandler();
+    public static final int SKILL_TYPE_COUNT = SkillType.values().length;
     public static double expRatio;
     public Map<String, Skill[]> playerSkills;
     public YamlConfiguration config, experience;
@@ -46,9 +47,9 @@ public class StatHandler extends JavaPlugin
 
         for(Player p : Bukkit.getOnlinePlayers())
         {
-            s = new Skill[10];
+            s = new Skill[SKILL_TYPE_COUNT];
 
-            for(int i = 0; i < 10; i++)
+            for(int i = 0; i < SKILL_TYPE_COUNT; i++)
             {
                 s[i] = new Skill(SkillType.values()[i]);
             }
