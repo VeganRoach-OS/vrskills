@@ -116,6 +116,21 @@ public class StatHandler extends JavaPlugin
             // all command work done with args to this command
             case "vrskills":
             case "skills":
+                switch (args[0])
+                {
+                    default:
+                    case "help":
+                        // todo: command reference
+                        break;
+                    case "addxp":
+                    case "addexp":
+                        // todo: free experience (needs to be saved to files)
+                        break;
+                    case "addlevel":
+                    case "addlvl":
+                        // todo: free levels (needs to be saved to files)
+                        break;
+                }
                 break;
         }
         return false;
