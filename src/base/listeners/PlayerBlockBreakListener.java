@@ -29,14 +29,13 @@ public class PlayerBlockBreakListener implements Listener
 
         for (int i = 0; i < SkillType.values().length; i++)
         {
-            expAmounts[i] = plugin.experience.getInt(SkillType.values()[i] + ".blocks." + e.getBlock().getType().toString());
-            player.sendMessage(SkillType.values()[i] + ".blocks." + e.getBlock().getType().toString());
+            expAmounts[i] = plugin.experience.getInt(SkillType.values()[i] + ".blocks." + e.getBlock().getType());
         }
 
         for (int i = 0; i < SkillType.values().length; i++)
         {
-            plugin.playerSkills.get(player.getName())[i].addExp(expAmounts[i]);
-            player.sendMessage("Added " + expAmounts[i] + " to " + SkillType.values()[i]);
+            if (plugin.playerSkills.get(player.getName())[i].addExp(expAmounts[i]))
+                player.sendMessage("Level up!");
         }
     }
 }
