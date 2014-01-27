@@ -25,15 +25,15 @@ public class PlayerBlockBreakListener implements Listener
     public void onBlockBreak(BlockBreakEvent e)
     {
         Player player = e.getPlayer();
-        int[] expAmounts = new int[StatHandler.SKILL_TYPE_COUNT];
+        int[] expAmounts = new int[SkillType.values().length];
 
-        for (int i = 0; i < StatHandler.SKILL_TYPE_COUNT; i++)
+        for (int i = 0; i < SkillType.values().length; i++)
         {
             expAmounts[i] = plugin.experience.getInt(SkillType.values()[i] + ".blocks." + e.getBlock().getType().toString());
             player.sendMessage(SkillType.values()[i] + ".blocks." + e.getBlock().getType().toString());
         }
 
-        for (int i = 0; i < StatHandler.SKILL_TYPE_COUNT; i++)
+        for (int i = 0; i < SkillType.values().length; i++)
         {
             plugin.playerSkills.get(player.getName())[i].addExp(expAmounts[i]);
             player.sendMessage("Added " + expAmounts[i] + " to " + SkillType.values()[i]);
