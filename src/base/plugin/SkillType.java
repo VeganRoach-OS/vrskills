@@ -28,7 +28,7 @@ public enum SkillType
 
     public int getExperienceForLevel(final byte level)
     {
-        return GROUP.getExpForLevel(level);
+        return (int)(GROUP.getExpForLevel(level) * StatHandler.globalExpRatio * StatHandler.expRatios[ordinal()]);
     }
 
     public byte getLevel(final int exp)
