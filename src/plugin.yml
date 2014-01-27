@@ -1,3 +1,8 @@
 name: VRSkills
 version: 1.0.0
 main: base.plugin.StatHandler
+commands:
+    vrskills:
+        description: Main command for VRSkills.
+    skills:
+        description: Alias for /vrskills
