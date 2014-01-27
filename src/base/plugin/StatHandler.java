@@ -21,20 +21,34 @@ import java.util.Map;
  */
 public class StatHandler extends JavaPlugin
 {
-    public static double expRatio;
+    public static double globalExpRatio;
+    public static double[] expRatios;
     public Map<String, Skill[]> playerSkills;
     public YamlConfiguration config, experience;
     private File configFile, experienceFile;
+    private final String[] RATIOS = {"archeryExperienceRatio", "axesExperienceRatio",
+                                     "excavationExperienceRatio", "fishingExperienceRatio",
+                                     "herbalExperienceRatio", "miningExperienceRatio",
+                                     "swordplayExperienceRatio", "tamingExperienceRatio",
+                                     "unarmedCombatExperienceRatio", "woodcuttingExperienceRatio"};
 
     @Override
     public void onEnable()
     {
+        expRatios = new double[RATIOS.length];
         configFile = new File(getDataFolder(), "config.yml");
         experienceFile = new File(getDataFolder(), "experience.yml");
         config = new YamlConfiguration();
         experience = new YamlConfiguration();
         loadConfiguration((byte)0);
-        expRatio = config.getDouble("experienceratio");
+
+        globalExpRatio = config.getDouble("globalExperienceRatio");
+
+        for(int i = 0; i < expRatios.length; i++)
+        {
+            expRatios[i] = config.getDouble(RATIOS[i]);
+        }
+
         PluginManager pm = Bukkit.getPluginManager();
 
         pm.registerEvents(new PlayerBlockBreakListener(this), this);

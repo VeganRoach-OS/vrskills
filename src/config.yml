@@ -1,1 +1,11 @@
-experienceratio: 1.0
+globalExperienceRatio: 1.0
+archeryExperienceRatio: 1.0
+axesExperienceRatio: 1.0
+excavationExperienceRatio: 1.0
+fishingExperienceRatio: 1.0
+herbalismExperienceRatio: 1.0
+miningExperienceRatio: 1.0
+swordplayExperienceRatio: 1.0
+tamingExperienceRatio: 1.0
+unarmedCombatExperienceRatio: 1.0
+woodcuttingExperienceRatio: 1.0
