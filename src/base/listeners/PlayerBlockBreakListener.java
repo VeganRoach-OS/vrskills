@@ -2,6 +2,7 @@ package base.listeners;
 
 import base.plugin.SkillType;
 import base.plugin.StatHandler;
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,7 +36,11 @@ public class PlayerBlockBreakListener implements Listener
         for (int i = 0; i < SkillType.values().length; i++)
         {
             if (plugin.playerSkills.get(player.getName())[i].addExp(expAmounts[i]))
-                player.sendMessage("Level up!");
+                player.sendMessage(ChatColor.DARK_RED + "Congratulations! You've just advanced your skill in " +
+                                    ChatColor.YELLOW + plugin.playerSkills.get(player.getName())[i].getType() +
+                                    ChatColor.DARK_RED + "! (" +
+                                    ChatColor.YELLOW + plugin.playerSkills.get(player.getName())[i].getCurrentLevel() +
+                                    ChatColor.DARK_RED + ")");
         }
     }
 }
