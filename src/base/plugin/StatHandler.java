@@ -54,19 +54,19 @@ public class StatHandler extends JavaPlugin
         pm.registerEvents(new PlayerBlockBreakListener(this), this);
         pm.registerEvents(new PlayerLoginListener(this), this);
 
-        Skill[] s;
+        Skill[] skills;
         playerSkills = new HashMap<>();
 
         for(Player p : Bukkit.getOnlinePlayers())
         {
-            s = new Skill[SkillType.values().length];
+            skills = new Skill[SkillType.values().length];
 
             for(int i = 0; i < SkillType.values().length; i++)
             {
-                s[i] = new Skill(SkillType.values()[i]);
+                skills[i] = new Skill(SkillType.values()[i]);
             }
 
-            playerSkills.put(p.getDisplayName(), s);
+            playerSkills.put(p.getDisplayName(), skills);
         }
     }
 
