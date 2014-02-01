@@ -112,80 +112,88 @@ public class StatHandler extends JavaPlugin
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
-        Player player = (Player) sender;
-        boolean argFault = false;
-        switch (command.getName().toLowerCase())
+        if (sender instanceof Player)
         {
-            // all command work done with args to this command
-            case "vrskills":
-            case "skills":
-                if (args.length == 0)
-                {
-                    argFault = true;
-                    break;
-                }
-                switch (args[0])
-                {
-                    default:
-                    case "help":
-                        // todo: command reference
+            Player player = (Player) sender;
+            boolean argFault = false;
+            switch (command.getName().toLowerCase())
+            {
+                // all command work done with args to this command
+                case "vrskills":
+                case "skills":
+                    if (args.length == 0)
+                    {
+                        argFault = true;
                         break;
-                    case "addxp":
-                    case "addexp":
-                        if (args.length == 3 || args.length == 4)
-                        {
-                            String skill = "";
-                            for (SkillType type : SkillType.values())
+                    }
+                    switch (args[0])
+                    {
+                        default:
+                        case "help":
+                            printHelp(player);
+                            break;
+                        case "addxp":
+                        case "addexp":
+                            if (args.length == 3 || args.length == 4)
                             {
-                                if (args[1].equalsIgnoreCase(type.toString()))
-                                    skill = type.toString().toLowerCase();
-                            }
-                            if (skill.equals(""))
-                            {
-                                argFault = true;
-                            }else
-                            {
-                                if (args.length == 3)
+                                String skill = "";
+                                for (SkillType type : SkillType.values())
                                 {
-                                    for (Skill s : playerSkills.get(player.getName()))
-                                    {
-                                        if (s.getType().toString().equalsIgnoreCase(skill))
-                                            s.addExp(Integer.parseInt(args[2]), player.getName());
-                                    }
+                                    if (args[1].equalsIgnoreCase(type.toString()))
+                                        skill = type.toString().toLowerCase();
+                                }
+                                if (skill.equals(""))
+                                {
+                                    argFault = true;
                                 }else
                                 {
-                                    for (Skill s : playerSkills.get(args[3]))
+                                    if (args.length == 3)
                                     {
-                                        if (s.getType().toString().equalsIgnoreCase(skill))
-                                            s.addExp(Integer.parseInt(args[2]), args[3]);
+                                        for (Skill s : playerSkills.get(player.getName()))
+                                        {
+                                            if (s.getType().toString().equalsIgnoreCase(skill))
+                                                s.addExp(Integer.parseInt(args[2]), player.getName());
+                                        }
+                                    }else
+                                    {
+                                        for (Skill s : playerSkills.get(args[3]))
+                                        {
+                                            if (s.getType().toString().equalsIgnoreCase(skill))
+                                                s.addExp(Integer.parseInt(args[2]), args[3]);
+                                        }
                                     }
+
+                                    player.sendMessage("Added " + args[2] + " to " + (args.length == 4 ? args[3] + "'s ": "your ") + skill + " skill.");
                                 }
-
-                                player.sendMessage("Added " + args[2] + " to " + (args.length == 4 ? args[3] + "'s ": "your ") + skill + " skill.");
                             }
-                        }
 
-                        if (argFault)
-                        {
-                            player.sendMessage(ChatColor.RED + "Usage: /vrskills addexp <skill> <amount> [player]");
-                            return false;
-                        }
-                        return true;
-                    case "addlevel":
-                    case "addlvl":
-                        // todo: free levels (needs to be saved to files)
-                        return true;
-                }
-                return true;
+                            if (argFault)
+                            {
+                                player.sendMessage(ChatColor.RED + "Usage: /vrskills addexp <skill> <amount> [player]");
+                                return false;
+                            }
+                            return true;
+                        case "addlevel":
+                        case "addlvl":
+                            // todo: free levels (needs to be saved to files)
+                            return true;
+                    }
+                    return true;
+            }
+
+            if (argFault) printHelp(player);
+            return false;
+        }else
+        {
+            // todo: console commands
         }
 
-        if (argFault) printHelp(player);
         return false;
     }
 
     public void printHelp(Player p)
     {
-        // stuff
+        // todo: display command reference
     }
 
     @Override
