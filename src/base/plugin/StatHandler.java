@@ -3,6 +3,7 @@ package base.plugin;
 import base.listeners.PlayerBlockBreakListener;
 import base.listeners.PlayerLoginListener;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -111,6 +112,8 @@ public class StatHandler extends JavaPlugin
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
+        Player player = (Player) sender;
+        boolean argFault = false;
         switch (command.getName().toLowerCase())
         {
             // all command work done with args to this command
@@ -124,7 +127,39 @@ public class StatHandler extends JavaPlugin
                         break;
                     case "addxp":
                     case "addexp":
-                        // todo: free experience (needs to be saved to files)
+                        if (args.length == 3 || args.length == 4)
+                        {
+                            String skill = "";
+                            for (SkillType type : SkillType.values())
+                            {
+                                if (args[1].equalsIgnoreCase(type.toString()))
+                                    skill = type.toString().toLowerCase();
+                            }
+                            if (skill.equals(""))
+                            {
+                                argFault = true;
+                            }else
+                            {
+                                if (args.length == 3)
+                                {
+                                    for (Skill s : playerSkills.get(player.getName()))
+                                    {
+                                        if (s.getType().toString().equalsIgnoreCase(skill))
+                                            s.addExp(Integer.parseInt(args[2]));
+                                    }
+                                }else
+                                {
+                                    for (Skill s : playerSkills.get(args[3]))
+                                    {
+                                        if (s.getType().toString().equalsIgnoreCase(skill))
+                                            s.addExp(Integer.parseInt(args[2]));
+                                    }
+                                }
+                            }
+                        }
+
+                        if (argFault)
+                            player.sendMessage(ChatColor.RED + "Usage: /vrskills addexp <skill> <amount> [player]");
                         break;
                     case "addlevel":
                     case "addlvl":
