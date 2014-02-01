@@ -43,15 +43,7 @@ public class PlayerBlockBreakListener implements Listener
         for (int i = 0; i < SkillType.values().length; i++)
         {
             if (plugin.playerSkills.get(player.getName())[i].getType().toString().equalsIgnoreCase(skill))
-                if (plugin.playerSkills.get(player.getName())[i].addExp(expAmount))
-                {
-                    player.sendMessage(ChatColor.DARK_RED + "Congratulations! You've just advanced your skill in " +
-                                               ChatColor.YELLOW + skill +
-                                               ChatColor.DARK_RED + "! (" +
-                                               ChatColor.YELLOW + plugin.playerSkills.get(player.getName())[i].getCurrentLevel() +
-                                               ChatColor.DARK_RED + ")");
-                    break;
-                }
+                plugin.playerSkills.get(player.getName())[i].addExp(expAmount, player.getName());
         }
     }
 }

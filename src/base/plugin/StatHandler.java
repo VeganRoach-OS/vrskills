@@ -119,6 +119,11 @@ public class StatHandler extends JavaPlugin
             // all command work done with args to this command
             case "vrskills":
             case "skills":
+                if (args.length == 0)
+                {
+                    argFault = true;
+                    break;
+                }
                 switch (args[0])
                 {
                     default:
@@ -145,30 +150,42 @@ public class StatHandler extends JavaPlugin
                                     for (Skill s : playerSkills.get(player.getName()))
                                     {
                                         if (s.getType().toString().equalsIgnoreCase(skill))
-                                            s.addExp(Integer.parseInt(args[2]));
+                                            s.addExp(Integer.parseInt(args[2]), player.getName());
                                     }
                                 }else
                                 {
                                     for (Skill s : playerSkills.get(args[3]))
                                     {
                                         if (s.getType().toString().equalsIgnoreCase(skill))
-                                            s.addExp(Integer.parseInt(args[2]));
+                                            s.addExp(Integer.parseInt(args[2]), args[3]);
                                     }
                                 }
+
+                                player.sendMessage("Added " + args[2] + " to " + (args.length == 4 ? args[3] + "'s ": "your ") + skill + " skill.");
                             }
                         }
 
                         if (argFault)
+                        {
                             player.sendMessage(ChatColor.RED + "Usage: /vrskills addexp <skill> <amount> [player]");
-                        break;
+                            return false;
+                        }
+                        return true;
                     case "addlevel":
                     case "addlvl":
                         // todo: free levels (needs to be saved to files)
-                        break;
+                        return true;
                 }
-                break;
+                return true;
         }
+
+        if (argFault) printHelp(player);
         return false;
+    }
+
+    public void printHelp(Player p)
+    {
+        // stuff
     }
 
     @Override
