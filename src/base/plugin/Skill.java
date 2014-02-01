@@ -78,6 +78,12 @@ public class Skill
         return currentXp;
     }
 
+    public int getXpToGo()
+    {
+        // todo: get experience required to level up
+        return 0;
+    }
+
     public SkillType getType()
     {
         return TYPE;
