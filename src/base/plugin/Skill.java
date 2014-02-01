@@ -80,8 +80,7 @@ public class Skill
 
     public int getXpToGo()
     {
-        // todo: get experience required to level up
-        return 0;
+        return TYPE.getExperienceForLevel((byte) (getCurrentLevel() + (byte) 1)) - getCurrentXp();
     }
 
     public SkillType getType()
