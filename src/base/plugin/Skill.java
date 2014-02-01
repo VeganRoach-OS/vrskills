@@ -66,6 +66,11 @@ public class Skill
         return TYPE.getLevel(currentXp);
     }
 
+    public int getCurrentXp()
+    {
+        return currentXp;
+    }
+
     public SkillType getType()
     {
         return TYPE;
