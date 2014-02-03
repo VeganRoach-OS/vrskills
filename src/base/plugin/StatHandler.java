@@ -163,7 +163,7 @@ public class StatHandler extends JavaPlugin
                                         }
                                     }
 
-                                    player.sendMessage("Added " + args[2] + " to " + (args.length == 4 ? args[3] + "'s ": "your ") + skill + " skill.");
+                                    player.sendMessage("Added " + args[2] + " to " + (args.length == 4 ? args[3] + "'s " : "your ") + skill + " skill.");
                                 }
                             }
 
@@ -175,7 +175,44 @@ public class StatHandler extends JavaPlugin
                             return true;
                         case "addlevel":
                         case "addlvl":
-                            // todo: free levels (needs to be saved to files)
+                            if (args.length == 3 || args.length == 4)
+                            {
+                                String skill = "";
+                                for (SkillType type : SkillType.values())
+                                {
+                                    if (args[1].equalsIgnoreCase(type.toString()))
+                                        skill = type.toString().toLowerCase();
+                                }
+                                if (skill.equals(""))
+                                {
+                                    argFault = true;
+                                }else
+                                {
+                                    if (args.length == 3)
+                                    {
+                                        for (Skill s : playerSkills.get(player.getName()))
+                                        {
+                                            if (s.getType().toString().equalsIgnoreCase(skill))
+                                                s.advanceLevel(Byte.parseByte(args[2]), player.getName());
+                                        }
+                                    }else
+                                    {
+                                        for (Skill s : playerSkills.get(args[3]))
+                                        {
+                                            if (s.getType().toString().equalsIgnoreCase(skill))
+                                                s.advanceLevel(Byte.parseByte(args[2]), args[3]);
+                                        }
+                                    }
+
+                                    player.sendMessage("Added " + args[2] + " levels to " + (args.length == 4 ? args[3] + "'s " : "your ") + skill + " skill.");
+                                }
+                            }
+
+                            if (argFault)
+                            {
+                                player.sendMessage(ChatColor.RED + "Usage: /vrskills addlevel <skill> <amount> [player]");
+                                return false;
+                            }
                             return true;
                     }
                     return true;

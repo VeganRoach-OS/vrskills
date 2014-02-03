@@ -68,6 +68,12 @@ public class Skill
         }
     }
 
+    public void advanceLevel(byte levels, String player)
+    {
+        for (int i = 0; i < levels; i++)
+            addExp(getXpToGo(), player);
+    }
+
     public byte getCurrentLevel()
     {
         return TYPE.getLevel(currentXp);
