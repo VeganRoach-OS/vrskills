@@ -30,9 +30,18 @@ public class Skill
 
     public void addExp(final int exp, String player)
     {
+        if (getCurrentLevel() >= 100) return;
         byte oldLevel = getCurrentLevel(), currentLevel;
-        currentXp += exp;
-        currentLevel = getCurrentLevel();
+        try
+        {
+            currentXp += exp;
+            currentLevel = getCurrentLevel();
+        }catch (IllegalStateException e)
+        {
+            // experience to be added goes over maximum
+            setLevel((byte)100);
+            currentLevel = getCurrentLevel();
+        }
 
         if(oldLevel < currentLevel)
         {
@@ -68,10 +77,16 @@ public class Skill
         }
     }
 
-    public void advanceLevel(byte levels, String player)
+    private void setXp(int amount)
     {
-        for (int i = 0; i < levels; i++)
-            addExp(getXpToGo(), player);
+        currentXp = amount;
+    }
+
+    public void setLevel(byte targetLevel)
+    {
+        if (targetLevel > 100)
+            throw new IllegalArgumentException("Cannot set level higher than maximum.");
+        setXp(TYPE.getExperienceForLevel(targetLevel));
     }
 
     public byte getCurrentLevel()
@@ -84,9 +99,9 @@ public class Skill
         return currentXp;
     }
 
-    public int getXpToGo()
+    public int getXpToGo(byte level)
     {
-        return TYPE.getExperienceForLevel((byte) (getCurrentLevel() + (byte) 1)) - getCurrentXp();
+        return TYPE.getExperienceForLevel((byte) (level + (byte) 1)) - getCurrentXp();
     }
 
     public SkillType getType()
