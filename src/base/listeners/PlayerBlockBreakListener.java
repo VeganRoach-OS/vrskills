@@ -46,4 +46,6 @@ public class PlayerBlockBreakListener implements Listener
                 plugin.playerSkills.get(player.getName())[i].addExp(expAmount, player.getName());
         }
     }
+
+    // todo: check skill type and modify drops
 }
